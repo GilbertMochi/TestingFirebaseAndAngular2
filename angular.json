@@ -92,6 +92,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -123,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "KendoAppWithAngularTest"
+    }
+  },
+  "defaultProject": "KendoAppWithAngularTest",
+  "cli": {
+    "analytics": "c01005f4-18d0-4531-b84b-a736c667f67c"
+  }
 }

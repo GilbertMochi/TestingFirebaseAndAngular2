@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyC1ia-TsMiVcPxZP9dx7SN8yT76uzYLPzw",
+    authDomain: "kendotournamentapp1.firebaseapp.com",
+    databaseURL: "https://kendotournamentapp1.firebaseio.com",
+    projectId: "kendotournamentapp1",
+    storageBucket: "kendotournamentapp1.appspot.com",
+    messagingSenderId: "189002037157",
+    appId: "1:189002037157:web:2a0ae7cfd73788a103da4c",
+    measurementId: "G-PXNVZYD1NS"
+  }
 };
 
 /*
