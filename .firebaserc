@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "kendotournamentapp1": {
+      "hosting": {
+        "KendoAppWithAngularTest": [
+          "kendotournamentapp1"
+        ]
+      }
+    }
+  }
+}
