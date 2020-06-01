@@ -1,11 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../user';
-import { auth } from 'firebase/app';
+import {auth}from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AngularFirestoreDocument } from '@angular/fire/firestore/public_api';
-import { createUrlResolverWithoutPackagePrefix } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +35,7 @@ export class AuthService {
 
   //sign in with email/password combo
   SignIn(email, password) {
-    return this.afAuth.auth.signInWithEmailAndPAssword(email, password).
+    return this.afAuth.signInWithEmailAndPassword(email, password).
       then((result) => {
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
@@ -48,7 +47,7 @@ export class AuthService {
   }
   //sign up email/password
   SignUp(email, password) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email.password).
+    return this.afAuth.createUserWithEmailAndPassword(email,password).
       then((result) => {
         //call sendverificationmail and returns a promise
         this.SendVerificationMail();
@@ -58,15 +57,15 @@ export class AuthService {
       })
   }
 
-  SendVerificationMail() {
-    return this.afAuth.auth.currentUser.sendEmailVerification.
-      then(() => {
-        this.router.navigate(['verify-email-address']);
-      })
+  SendVerificationMail() {//this might break because of the double return
+    return this.afAuth.currentUser.then((user)=>{return user.sendEmailVerification()})
+    .then(() => {
+      this.router.navigate(['verifyEmail']);
+    })
   }
 
   ForgotPassword(passwordResetEmail) {
-    return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail).
+    return this.afAuth.sendPasswordResetEmail(passwordResetEmail).
       then(() => {
         window.alert('Password reset email has been sent. Check your mail');
       }).catch((error) => {
@@ -93,7 +92,7 @@ export class AuthService {
 
   //sign out
   SignOut() {
-    return this.afAuth.auth.signOut().then(() => {
+    return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['signIn']);
     })
