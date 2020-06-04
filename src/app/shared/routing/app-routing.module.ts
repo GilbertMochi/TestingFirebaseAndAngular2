@@ -10,8 +10,8 @@ import { VerifyEmailComponent } from '../../components/verify-email/verify-email
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'signUn', component: SignInComponent },
-  { path: 'registerUser', component: SignUpComponent },
+  { path: 'signIn', component: SignInComponent },
+  { path: 'signUp', component: SignUpComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'verifyEmail', component: VerifyEmailComponent }

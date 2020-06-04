@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../user';
-import {auth}from 'firebase/app';
+import { auth } from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -47,7 +47,7 @@ export class AuthService {
   }
   //sign up email/password
   SignUp(email, password) {
-    return this.afAuth.createUserWithEmailAndPassword(email,password).
+    return this.afAuth.createUserWithEmailAndPassword(email, password).
       then((result) => {
         //call sendverificationmail and returns a promise
         this.SendVerificationMail();
@@ -58,10 +58,10 @@ export class AuthService {
   }
 
   SendVerificationMail() {//this might break because of the double return
-    return this.afAuth.currentUser.then((user)=>{return user.sendEmailVerification()})
-    .then(() => {
-      this.router.navigate(['verifyEmail']);
-    })
+    return this.afAuth.currentUser.then((user) => { return user.sendEmailVerification() })
+      .then(() => {
+        this.router.navigate(['verifyEmail']);
+      })
   }
 
   ForgotPassword(passwordResetEmail) {
