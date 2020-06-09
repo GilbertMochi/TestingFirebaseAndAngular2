@@ -12,13 +12,14 @@
 
             <!--sign in from auth service-->
             <div class="formGroup">
-                <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
+                <input type="button" class="btn btnPrimary" value="Log in"
+                    (click)="authService.SignIn(userName.value, userPassword.value)">
             </div>
 
             <div class="forgotPassword">
                 <span routerLink="/forgotPassword">Forgot password&#63;</span>
             </div>
         </div>
-        </div>
+
     </div>
 </div>
