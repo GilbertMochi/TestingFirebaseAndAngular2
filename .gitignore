@@ -41,6 +41,10 @@ yarn-error.log
 testem.log
 /typings
 
+#single files
+src\environments\environment.ts
+src\environments\environment.prod.ts
+
 #certain folders
 environments
 
