@@ -10,11 +10,18 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 
 import { AuthService } from './shared/auth/auth.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,6 +29,9 @@ import { AuthService } from './shared/auth/auth.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

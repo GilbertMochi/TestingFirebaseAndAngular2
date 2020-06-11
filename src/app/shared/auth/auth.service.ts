@@ -60,7 +60,7 @@ export class AuthService {
   SendVerificationMail() {//this might break because of the double return
     return this.afAuth.currentUser.then((user) => { return user.sendEmailVerification() })
       .then(() => {
-        this.router.navigate(['verifyEmail']);
+        this.router.navigate(['verify-email']);
       })
   }
 
@@ -85,7 +85,10 @@ export class AuthService {
       name: user.name,
       email: user.email,
       emailVerified: user.emailVerified,
-      roles: user.Roles
+      roles: {
+        Organiser:true,
+        Referee:true
+      }
     }
     return userRef.set(userData, { merge: true })
   }
@@ -94,8 +97,31 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['signIn']);
+      this.router.navigate(['home']);
     })
+  }
+
+  //user roles
+  canEdit(user: User): boolean {
+    const allowed = ['Organiser', 'Referee'];
+    return this.checkAuthorization(user, allowed);
+  }
+
+  canManage(user: User): boolean {
+    const allowed = ['Organiser'];
+    return this.checkAuthorization(user, allowed);
+  }
+
+  private checkAuthorization(user: User, allowedRoles: string[]): boolean {
+    if (!user) {
+      return false;
+    }
+    for (const role of allowedRoles) {
+      if (user.roles[role]) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

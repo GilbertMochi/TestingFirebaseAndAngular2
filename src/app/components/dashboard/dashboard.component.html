@@ -44,12 +44,18 @@
                         <div class="media">
                             <img class="align-self-start mr-5 img-thumbnail rounded-circle"
                                 src="{{(User.photoURL) ? User.photoURL:'/assets/dummy-user.png'}}"
-                                alt="{{User.name}}"/>
-                                <div class="media-body">
-                                    <h1>Signed in as <strong>{{(User.name)?User.name:'User'}}</strong></h1>
-                                    <p>User Id: <strong>{{User.uid}}</strong></p>
-                                    <p>User email: <strong>{{User.email}}</strong></p>
-                                    <p>Email has been verified: <strong>{{User.emailVerified}}</strong></p>
+                                alt="{{User.name}}" />
+                            <div class="media-body">
+                                <h1>Signed in as <strong>{{(User.name)?User.name:'User'}}</strong></h1>
+                                <p>User Id: <strong>{{User.uid}}</strong></p>
+                                <p>User email: <strong>{{User.email}}</strong></p>
+                                <p>Email has been verified: <strong>{{User.emailVerified}}</strong></p>
+                                <h2>Roles:</h2>
+                                <ul>
+                                    <li *ngFor="let role of User.roles">
+                                        {{role}
+                                    </li>
+                                </ul>
                                 </div>
                         </div>
                     </div>

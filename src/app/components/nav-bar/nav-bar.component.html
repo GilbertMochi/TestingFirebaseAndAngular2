@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+    <mat-button routerLink="/home">Tournaments</mat-button>
+
+        <!-- This fills the remaining space of the current row -->
+        <span class="fill-space"></span>
+
+        <ng-template [ngIf]="!user" [ngIfElse]="loggedInDropDown">
+            <mat-fab routerLink="/sign-in">Sign In</mat-fab>
+        </ng-template>
+        <ng-template #loggedInDropDown>
+            <div class="dropdown show">
+                <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {{user.name}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" *ngIf="authService.canManage(user)" routerLink="/manage-tournaments">Manage
+                        Tournaments</a>
+                    <a class="dropdown-item" *ngIf="authService.canManage(user)" routerLink="/add-others">Add a referee
+                        or
+                        an organiser</a>
+                    <a class="dropdown-item" *ngIf="authService.canEdit(user)" routerLink="/judging-matches">Judge a
+                        match</a>
+                    <a class="dropdown-item" (click)="authService.SignOut()">Sign Out</a>
+                </div>
+            </div>
+        </ng-template>
+</mat-toolbar>
