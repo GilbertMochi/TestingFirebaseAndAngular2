@@ -11,13 +11,13 @@ import { AuthGuard } from '../guard/auth.guard';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full'  },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'signIn', component: SignInComponent },
-  { path: 'signUp', component: SignUpComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path: 'forgotPassword', component: ForgotPasswordComponent },
-  { path: 'verifyEmail', component: VerifyEmailComponent }
+  { path: 'sign-in', component: SignInComponent },
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'verify-email', component: VerifyEmailComponent }
 ];
 
 @NgModule({
@@ -25,3 +25,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+export const routingComponents = [HomeComponent, SignInComponent, SignUpComponent, DashboardComponent, ForgotPasswordComponent, VerifyEmailComponent]
