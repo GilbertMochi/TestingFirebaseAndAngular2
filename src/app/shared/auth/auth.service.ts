@@ -5,6 +5,8 @@ import { AngularFirestore } from '@angular/fire/firestore/';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AngularFirestoreDocument } from '@angular/fire/firestore/public_api';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ import { AngularFirestoreDocument } from '@angular/fire/firestore/public_api';
 export class AuthService {
 
   //logged in user data
-  userData: any;
+  user$: Observable<User>;
 
   constructor(
     public afs: AngularFirestore,//firestore service
@@ -22,9 +24,17 @@ export class AuthService {
     //save user data locally when logged in, set to null otherwise
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user'));
+        this.user$ = this.afAuth.authState.pipe(
+          switchMap(user => {
+          if (user) {
+            localStorage.setItem('user', JSON.stringify(this.user$));
+            JSON.parse(localStorage.getItem('user'));
+            return this.afs.doc<User>('users/${user.uid}').valueChanges();
+          } else {
+            return of(null);
+          }
+        }
+        ));
       }
       else {
         localStorage.setItem('user', null);
@@ -86,8 +96,8 @@ export class AuthService {
       email: user.email,
       emailVerified: user.emailVerified,
       roles: {
-        Organiser:true,
-        Referee:true
+        Organiser: true,
+        Referee: true
       }
     }
     return userRef.set(userData, { merge: true })

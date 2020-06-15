@@ -10,11 +10,10 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 export class NavBarComponent implements OnInit {
 
   user: User;
-
   constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
-    this.user = this.authService.userData as User;
+    this.authService.user$.subscribe(user => this.user = user);
   }
 
 }

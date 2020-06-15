@@ -4,7 +4,7 @@
         <div class="authBlock">
             <h3>Register success!</h3>
 
-            <div class="formGroup" *ngIf="authService.userData as User">
+            <div class="formGroup" *ngIf="authService.user$ as User">
                 <p class="text-center">Confirmation email has been sent to <strong>{{User.email}}</strong>.</p>
                 <p class="text-center">Check the email and click on the link to verify email.</p>
             </div>

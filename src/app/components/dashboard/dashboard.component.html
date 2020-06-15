@@ -39,7 +39,7 @@
                 </div>
 
                 <!--user data when logged in-->
-                <div class="row" *ngIf="authService.userData as User">
+                <div class="row" *ngIf="authService.user$ as User">
                     <div class="col-md 12">
                         <div class="media">
                             <img class="align-self-start mr-5 img-thumbnail rounded-circle"
@@ -53,7 +53,7 @@
                                 <h2>Roles:</h2>
                                 <ul>
                                     <li *ngFor="let role of User.roles">
-                                        {{role}
+                                        {{role}}
                                     </li>
                                 </ul>
                                 </div>
