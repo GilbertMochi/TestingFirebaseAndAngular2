@@ -1,28 +1,22 @@
 <mat-toolbar color="primary">
-    <mat-button routerLink="/home">Tournaments</mat-button>
+    <a mat-button routerLink="/home" class="mainTitleText">
+        <img class="navBarLogo" src="assets/mainLogoWhite.png">
+        Records
+    </a>
 
         <!-- This fills the remaining space of the current row -->
         <span class="fill-space"></span>
 
-        <ng-template [ngIf]="!user" [ngIfElse]="loggedInDropDown">
-            <mat-fab routerLink="/sign-in">Sign In</mat-fab>
+        <div *ngIf="user; then loggedInCoices else loginBtn">
+             <!-- content from templates -->
+        </div>
+
+        <ng-template #loggedInCoices>
+            <a mat-flat-button *ngIf="authService.canManage(user)" routerLink="/tournamentsManagement"></a>
+            <button mat-stroked-button (click)="authService.signOut()">Sign Out</button>
         </ng-template>
-        <ng-template #loggedInDropDown>
-            <div class="dropdown show">
-                <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    {{user.name}}
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" *ngIf="authService.canManage(user)" routerLink="/manage-tournaments">Manage
-                        Tournaments</a>
-                    <a class="dropdown-item" *ngIf="authService.canManage(user)" routerLink="/add-others">Add a referee
-                        or
-                        an organiser</a>
-                    <a class="dropdown-item" *ngIf="authService.canEdit(user)" routerLink="/judging-matches">Judge a
-                        match</a>
-                    <a class="dropdown-item" (click)="authService.SignOut()">Sign Out</a>
-                </div>
-            </div>
+        <ng-template #loginBtn>
+           <a mat-flat-button routerLink="sign-in"></a>
         </ng-template>
+
 </mat-toolbar>

@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
 
     return this.authService.user$.pipe(
       take(1),
-      map(user => user && user.roles.Organiser ? true : false),
+      map(user => user && user.roles.referee ? true : false),
       tap(isAdmin => {
         if (!isAdmin) {
           console.error('Access denied. Unauthorized user.')

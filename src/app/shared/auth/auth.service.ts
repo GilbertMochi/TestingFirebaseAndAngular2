@@ -22,25 +22,19 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone /*ngzone to remove outside of scope warning*/) {
     //save user data locally when logged in, set to null otherwise
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.user$ = this.afAuth.authState.pipe(
-          switchMap(user => {
-          if (user) {
-            localStorage.setItem('user', JSON.stringify(this.user$));
-            JSON.parse(localStorage.getItem('user'));
-            return this.afs.doc<User>('users/${user.uid}').valueChanges();
-          } else {
-            return of(null);
-          }
+    this.user$ = this.afAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(this.user$));
+          JSON.parse(localStorage.getItem('user'));
+          return this.afs.doc<User>('users/${user.uid}').valueChanges();
+        } else {
+          localStorage.setItem('user', null);
+          JSON.parse(localStorage.getItem('user'));
+          return of(null);
         }
-        ));
       }
-      else {
-        localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
-      }
-    })
+      ));
   }
 
   //sign in with email/password combo
@@ -92,12 +86,11 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: User = {
       uid: user.uid,
-      name: user.name,
       email: user.email,
       emailVerified: user.emailVerified,
       roles: {
-        Organiser: true,
-        Referee: true
+        referee:true,
+        organiser:true
       }
     }
     return userRef.set(userData, { merge: true })
